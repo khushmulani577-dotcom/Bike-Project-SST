@@ -1,0 +1,594 @@
+<!doctype html>
+<html lang="en" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Khalnayak Bikes</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&amp;family=Outfit:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+  <style>
+html, body { height: 100%; margin: 0; }
+* { box-sizing: border-box; }
+.font-heading { font-family: 'Bebas Neue', cursive; }
+.font-body { font-family: 'Outfit', sans-serif; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes flicker { 0%,100% { opacity: 1; } 50% { opacity: 0.85; } }
+@keyframes slideIn { from { opacity: 0; transform: translateX(-40px); } to { opacity: 1; transform: translateX(0); } }
+@keyframes pulse-glow { 0%,100% { box-shadow: 0 0 20px rgba(220,38,38,0.3); } 50% { box-shadow: 0 0 40px rgba(220,38,38,0.6); } }
+.anim-fade { animation: fadeUp 0.8s ease both; }
+.anim-fade-d1 { animation: fadeUp 0.8s 0.1s ease both; }
+.anim-fade-d2 { animation: fadeUp 0.8s 0.2s ease both; }
+.anim-fade-d3 { animation: fadeUp 0.8s 0.3s ease both; }
+.anim-fade-d4 { animation: fadeUp 0.8s 0.4s ease both; }
+.anim-slide { animation: slideIn 0.6s ease both; }
+.glow-box { animation: pulse-glow 3s ease-in-out infinite; }
+.nav-link { position: relative; }
+.nav-link::after { content:''; position: absolute; bottom: -2px; left: 0; width: 0; height: 2px; background: currentColor; transition: width 0.3s; }
+.nav-link:hover::after { width: 100%; }
+section { scroll-margin-top: 70px; }
+.card-hover { transition: transform 0.3s, box-shadow 0.3s; }
+.card-hover:hover { transform: translateY(-6px); box-shadow: 0 12px 40px rgba(220,38,38,0.2); }
+.bike-card { transition: transform 0.4s, box-shadow 0.4s; }
+.bike-card:hover { transform: scale(1.03); }
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: #0a0a0a; }
+::-webkit-scrollbar-thumb { background: #dc2626; border-radius: 4px; }
+.stripe-bg {
+  background-image: repeating-linear-gradient(
+    -45deg, transparent, transparent 10px, rgba(220,38,38,0.03) 10px, rgba(220,38,38,0.03) 20px
+  );
+}
+</style>
+  <style>body { box-sizing: border-box; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full font-body">
+  <div id="app-wrapper" class="w-full h-full overflow-auto" style="background:#0a0a0a; color:#f5f5f5;"><!-- NAV -->
+   <nav id="main-nav" class="fixed top-0 left-0 w-full z-50 transition-all duration-300" style="background:rgba(10,10,10,0.92); backdrop-filter:blur(12px); border-bottom:1px solid rgba(220,38,38,0.2);">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between h-16"><a href="#cover" class="font-heading text-2xl tracking-widest" style="color:#dc2626;">KHALNAYAK</a> <button id="menu-btn" class="sm:hidden p-2" aria-label="Toggle menu"><i data-lucide="menu" style="color:#dc2626;" class="w-6 h-6"></i></button>
+     <div id="nav-links" class="hidden sm:flex gap-6 text-sm font-medium tracking-wide"><a href="#cover" class="nav-link hover:opacity-80" style="color:#a3a3a3;">Home</a> <a href="#intro" class="nav-link hover:opacity-80" style="color:#a3a3a3;">About</a> <a href="#models" class="nav-link hover:opacity-80" style="color:#a3a3a3;">Models</a> <a href="#production" class="nav-link hover:opacity-80" style="color:#a3a3a3;">Production</a> <a href="#pricing" class="nav-link hover:opacity-80" style="color:#a3a3a3;">Pricing</a>
+     </div>
+    </div>
+    <div id="mobile-menu" class="hidden sm:hidden px-4 pb-4 space-y-3 text-sm font-medium"><a href="#cover" class="block py-2" style="color:#a3a3a3;">Home</a> <a href="#intro" class="block py-2" style="color:#a3a3a3;">About</a> <a href="#models" class="block py-2" style="color:#a3a3a3;">Models</a> <a href="#production" class="block py-2" style="color:#a3a3a3;">Production</a> <a href="#pricing" class="block py-2" style="color:#a3a3a3;">Pricing</a>
+    </div>
+   </nav><!-- COVER / HERO -->
+   <section id="cover" class="relative w-full flex items-center justify-center overflow-hidden" style="min-height:100%;">
+    <div class="absolute inset-0" style="background: radial-gradient(ellipse at 50% 30%, rgba(220,38,38,0.15) 0%, transparent 60%);"></div>
+    <div class="absolute inset-0 stripe-bg"></div><!-- Large SVG Bike silhouette -->
+    <div class="absolute right-0 bottom-0 opacity-5" style="width:60%; max-width:700px;">
+     <svg viewbox="0 0 800 400" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="180" cy="300" r="90" stroke="#dc2626" stroke-width="6" /> <circle cx="180" cy="300" r="60" stroke="#dc2626" stroke-width="2" /> <circle cx="620" cy="300" r="90" stroke="#dc2626" stroke-width="6" /> <circle cx="620" cy="300" r="60" stroke="#dc2626" stroke-width="2" /> <path d="M180 300 L300 180 L450 160 L500 200 L620 300" stroke="#dc2626" stroke-width="5" stroke-linejoin="round" /> <path d="M300 180 L350 120 L380 110 L370 130" stroke="#dc2626" stroke-width="4" stroke-linecap="round" /> <path d="M450 160 L480 140 L520 150 L500 200" stroke="#dc2626" stroke-width="4" /> <ellipse cx="460" cy="190" rx="40" ry="25" stroke="#dc2626" stroke-width="3" /> <path d="M500 200 L560 260 L620 300" stroke="#dc2626" stroke-width="4" /> <rect x="420" y="170" width="80" height="15" rx="4" stroke="#dc2626" stroke-width="2" />
+     </svg>
+    </div>
+    <div class="relative z-10 text-center px-6 py-20">
+     <p class="anim-fade text-sm tracking-[0.4em] uppercase mb-4 font-medium" style="color:#dc2626;">Business Studies Project</p>
+     <h1 id="hero-title" class="font-heading anim-fade-d1 leading-none mb-2" style="font-size:clamp(3.5rem,10vw,8rem); color:#f5f5f5; letter-spacing:0.05em;">KHALNAYAK</h1>
+     <h2 class="font-heading anim-fade-d2 leading-none mb-6" style="font-size:clamp(1.5rem,4vw,3rem); color:#dc2626; letter-spacing:0.15em;">BIKES</h2>
+     <p id="hero-tagline" class="anim-fade-d3 text-lg sm:text-xl max-w-xl mx-auto mb-10" style="color:#a3a3a3;">Bold machines for bold souls. Inspired by power. Built with attitude.</p>
+     <div class="anim-fade-d4 flex flex-col sm:flex-row gap-3 justify-center items-center text-sm" style="color:#a3a3a3;"><span id="info-name">Name: Khush Mulani</span> <span class="hidden sm:inline" style="color:#dc2626;">•</span> <span id="info-class">Class: 8th E</span> <span class="hidden sm:inline" style="color:#dc2626;">•</span> <span id="info-teacher">Teacher: Abhimanyu Singh</span>
+     </div>
+     <div class="mt-10 anim-fade-d4"><a href="#intro" class="inline-flex items-center gap-2 px-6 py-3 rounded-full font-semibold text-sm transition-all glow-box" style="background:#dc2626; color:#f5f5f5;"> Explore Project <i data-lucide="chevron-down" class="w-4 h-4"></i> </a>
+     </div>
+    </div>
+   </section><!-- INTRODUCTION -->
+   <section id="intro" class="w-full py-20 px-4 sm:px-6">
+    <div class="max-w-5xl mx-auto">
+     <p class="text-xs tracking-[0.3em] uppercase mb-2 font-medium" style="color:#dc2626;">Chapter 01</p>
+     <h2 class="font-heading text-4xl sm:text-5xl mb-8" style="color:#f5f5f5;">Introduction</h2>
+     <div class="grid md:grid-cols-2 gap-8">
+      <div class="p-6 rounded-2xl" style="background:#141414; border:1px solid #1f1f1f;">
+       <p class="leading-relaxed" style="color:#a3a3a3;">Khalnayak Bikes is a custom motorcycle business inspired by bold and powerful designs. The theme of the brand is based on a strong villain personality inspired by Sanjay Dutt. These bikes are designed to look aggressive, stylish, and unique compared to normal motorcycles.</p>
+      </div>
+      <div class="p-6 rounded-2xl" style="background:#141414; border:1px solid #1f1f1f;">
+       <p class="leading-relaxed" style="color:#a3a3a3;">The business focuses on manufacturing high-quality custom bikes similar to Harley-Davidson but at a more affordable price. The aim is to provide a combination of performance, comfort, and attractive design. These bikes represent personality and attitude.</p>
+      </div>
+     </div>
+    </div>
+   </section><!-- BUSINESS IDEA -->
+   <section id="idea" class="w-full py-20 px-4 sm:px-6" style="background:#0f0f0f;">
+    <div class="max-w-5xl mx-auto">
+     <p class="text-xs tracking-[0.3em] uppercase mb-2 font-medium" style="color:#dc2626;">Chapter 02</p>
+     <h2 class="font-heading text-4xl sm:text-5xl mb-8" style="color:#f5f5f5;">Business Idea</h2>
+     <p class="mb-8 max-w-2xl leading-relaxed" style="color:#a3a3a3;">The idea is to create motorcycles that stand out from ordinary bikes – designed for people who want powerful and stylish machines.</p>
+     <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div class="card-hover p-5 rounded-xl text-center" style="background:#141414; border:1px solid #1f1f1f;">
+       <div class="w-12 h-12 rounded-full mx-auto mb-3 flex items-center justify-center" style="background:rgba(220,38,38,0.15);">
+        <i data-lucide="palette" class="w-5 h-5" style="color:#dc2626;"></i>
+       </div>
+       <h3 class="font-semibold mb-1" style="color:#f5f5f5;">Custom Designs</h3>
+       <p class="text-xs" style="color:#a3a3a3;">Unique villain-themed styling</p>
+      </div>
+      <div class="card-hover p-5 rounded-xl text-center" style="background:#141414; border:1px solid #1f1f1f;">
+       <div class="w-12 h-12 rounded-full mx-auto mb-3 flex items-center justify-center" style="background:rgba(220,38,38,0.15);">
+        <i data-lucide="zap" class="w-5 h-5" style="color:#dc2626;"></i>
+       </div>
+       <h3 class="font-semibold mb-1" style="color:#f5f5f5;">Powerful Engines</h3>
+       <p class="text-xs" style="color:#a3a3a3;">Performance that thrills</p>
+      </div>
+      <div class="card-hover p-5 rounded-xl text-center" style="background:#141414; border:1px solid #1f1f1f;">
+       <div class="w-12 h-12 rounded-full mx-auto mb-3 flex items-center justify-center" style="background:rgba(220,38,38,0.15);">
+        <i data-lucide="skull" class="w-5 h-5" style="color:#dc2626;"></i>
+       </div>
+       <h3 class="font-semibold mb-1" style="color:#f5f5f5;">Villain Theme</h3>
+       <p class="text-xs" style="color:#a3a3a3;">Bold, aggressive aesthetics</p>
+      </div>
+      <div class="card-hover p-5 rounded-xl text-center" style="background:#141414; border:1px solid #1f1f1f;">
+       <div class="w-12 h-12 rounded-full mx-auto mb-3 flex items-center justify-center" style="background:rgba(220,38,38,0.15);">
+        <i data-lucide="heart" class="w-5 h-5" style="color:#dc2626;"></i>
+       </div>
+       <h3 class="font-semibold mb-1" style="color:#f5f5f5;">Comfortable Ride</h3>
+       <p class="text-xs" style="color:#a3a3a3;">Designed for long journeys</p>
+      </div>
+     </div>
+    </div>
+   </section><!-- FACTORS OF PRODUCTION -->
+   <section id="factors" class="w-full py-20 px-4 sm:px-6">
+    <div class="max-w-5xl mx-auto">
+     <p class="text-xs tracking-[0.3em] uppercase mb-2 font-medium" style="color:#dc2626;">Chapter 03</p>
+     <h2 class="font-heading text-4xl sm:text-5xl mb-10" style="color:#f5f5f5;">Factors of Production</h2>
+     <div class="grid md:grid-cols-2 gap-6"><!-- Land -->
+      <div class="card-hover p-6 rounded-2xl" style="background:#141414; border:1px solid #1f1f1f;">
+       <div class="flex items-center gap-3 mb-4">
+        <div class="w-10 h-10 rounded-lg flex items-center justify-center" style="background:#dc2626;">
+         <i data-lucide="map-pin" class="w-5 h-5" style="color:#f5f5f5;"></i>
+        </div>
+        <h3 class="font-heading text-2xl" style="color:#f5f5f5;">Land</h3>
+       </div>
+       <ul class="space-y-2 text-sm" style="color:#a3a3a3;">
+        <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 mt-0.5 flex-shrink-0" style="color:#dc2626;"></i>Workshop for assembling bikes</li>
+        <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 mt-0.5 flex-shrink-0" style="color:#dc2626;"></i>Showroom for display</li>
+        <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 mt-0.5 flex-shrink-0" style="color:#dc2626;"></i>Storage space for materials</li>
+       </ul>
+       <p class="mt-3 text-xs" style="color:#666;">Located in industrial area with low rent</p>
+      </div><!-- Labour -->
+      <div class="card-hover p-6 rounded-2xl" style="background:#141414; border:1px solid #1f1f1f;">
+       <div class="flex items-center gap-3 mb-4">
+        <div class="w-10 h-10 rounded-lg flex items-center justify-center" style="background:#dc2626;">
+         <i data-lucide="users" class="w-5 h-5" style="color:#f5f5f5;"></i>
+        </div>
+        <h3 class="font-heading text-2xl" style="color:#f5f5f5;">Labour</h3>
+       </div>
+       <ul class="space-y-2 text-sm" style="color:#a3a3a3;">
+        <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 mt-0.5 flex-shrink-0" style="color:#dc2626;"></i>Mechanics</li>
+        <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 mt-0.5 flex-shrink-0" style="color:#dc2626;"></i>Engineers</li>
+        <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 mt-0.5 flex-shrink-0" style="color:#dc2626;"></i>Designers &amp; Sales staff</li>
+       </ul>
+       <p class="mt-3 text-xs" style="color:#666;">Skilled workers for quality &amp; safety</p>
+      </div><!-- Capital -->
+      <div class="card-hover p-6 rounded-2xl" style="background:#141414; border:1px solid #1f1f1f;">
+       <div class="flex items-center gap-3 mb-4">
+        <div class="w-10 h-10 rounded-lg flex items-center justify-center" style="background:#dc2626;">
+         <i data-lucide="indian-rupee" class="w-5 h-5" style="color:#f5f5f5;"></i>
+        </div>
+        <h3 class="font-heading text-2xl" style="color:#f5f5f5;">Capital</h3>
+       </div>
+       <ul class="space-y-2 text-sm" style="color:#a3a3a3;">
+        <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 mt-0.5 flex-shrink-0" style="color:#dc2626;"></i>Tools &amp; machines</li>
+        <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 mt-0.5 flex-shrink-0" style="color:#dc2626;"></i>Raw materials &amp; salaries</li>
+        <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 mt-0.5 flex-shrink-0" style="color:#dc2626;"></i>Marketing &amp; promotion</li>
+       </ul>
+       <p class="mt-3 text-xs" style="color:#666;">Estimated ₹10–20 lakh required</p>
+      </div><!-- Enterprise -->
+      <div class="card-hover p-6 rounded-2xl" style="background:#141414; border:1px solid #1f1f1f;">
+       <div class="flex items-center gap-3 mb-4">
+        <div class="w-10 h-10 rounded-lg flex items-center justify-center" style="background:#dc2626;">
+         <i data-lucide="rocket" class="w-5 h-5" style="color:#f5f5f5;"></i>
+        </div>
+        <h3 class="font-heading text-2xl" style="color:#f5f5f5;">Enterprise</h3>
+       </div>
+       <ul class="space-y-2 text-sm" style="color:#a3a3a3;">
+        <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 mt-0.5 flex-shrink-0" style="color:#dc2626;"></i>Takes risks &amp; makes decisions</li>
+        <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 mt-0.5 flex-shrink-0" style="color:#dc2626;"></i>Manages workers</li>
+        <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 mt-0.5 flex-shrink-0" style="color:#dc2626;"></i>Plans growth strategy</li>
+       </ul>
+       <p class="mt-3 text-xs" style="color:#666;">Success depends on good management</p>
+      </div>
+     </div>
+    </div>
+   </section><!-- MATERIALS -->
+   <section id="materials" class="w-full py-20 px-4 sm:px-6" style="background:#0f0f0f;">
+    <div class="max-w-5xl mx-auto">
+     <p class="text-xs tracking-[0.3em] uppercase mb-2 font-medium" style="color:#dc2626;">Chapter 04</p>
+     <h2 class="font-heading text-4xl sm:text-5xl mb-8" style="color:#f5f5f5;">Materials Used</h2>
+     <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+      <div class="p-4 rounded-xl text-center card-hover" style="background:#141414; border:1px solid #1f1f1f;">
+       <div class="text-3xl mb-2">
+        🔩
+       </div>
+       <p class="text-sm font-medium" style="color:#f5f5f5;">Steel</p>
+       <p class="text-xs" style="color:#666;">Frame</p>
+      </div>
+      <div class="p-4 rounded-xl text-center card-hover" style="background:#141414; border:1px solid #1f1f1f;">
+       <div class="text-3xl mb-2">
+        🛞
+       </div>
+       <p class="text-sm font-medium" style="color:#f5f5f5;">Rubber</p>
+       <p class="text-xs" style="color:#666;">Tires</p>
+      </div>
+      <div class="p-4 rounded-xl text-center card-hover" style="background:#141414; border:1px solid #1f1f1f;">
+       <div class="text-3xl mb-2">
+        ⚙️
+       </div>
+       <p class="text-sm font-medium" style="color:#f5f5f5;">Aluminum</p>
+       <p class="text-xs" style="color:#666;">Engine parts</p>
+      </div>
+      <div class="p-4 rounded-xl text-center card-hover" style="background:#141414; border:1px solid #1f1f1f;">
+       <div class="text-3xl mb-2">
+        🧱
+       </div>
+       <p class="text-sm font-medium" style="color:#f5f5f5;">Plastic</p>
+       <p class="text-xs" style="color:#666;">Body parts</p>
+      </div>
+      <div class="p-4 rounded-xl text-center card-hover" style="background:#141414; border:1px solid #1f1f1f;">
+       <div class="text-3xl mb-2">
+        🪞
+       </div>
+       <p class="text-sm font-medium" style="color:#f5f5f5;">Glass</p>
+       <p class="text-xs" style="color:#666;">Mirrors &amp; lights</p>
+      </div>
+      <div class="p-4 rounded-xl text-center card-hover" style="background:#141414; border:1px solid #1f1f1f;">
+       <div class="text-3xl mb-2">
+        🎨
+       </div>
+       <p class="text-sm font-medium" style="color:#f5f5f5;">Paint</p>
+       <p class="text-xs" style="color:#666;">Finishing</p>
+      </div>
+     </div>
+    </div>
+   </section><!-- COMPONENTS -->
+   <section id="components" class="w-full py-20 px-4 sm:px-6">
+    <div class="max-w-5xl mx-auto">
+     <p class="text-xs tracking-[0.3em] uppercase mb-2 font-medium" style="color:#dc2626;">Chapter 05</p>
+     <h2 class="font-heading text-4xl sm:text-5xl mb-8" style="color:#f5f5f5;">Motorcycle Components</h2>
+     <div class="grid md:grid-cols-2 gap-6">
+      <div class="p-6 rounded-2xl" style="background:#141414; border:1px solid #1f1f1f;">
+       <h3 class="font-heading text-xl mb-4" style="color:#dc2626;">Primary Components</h3>
+       <div class="grid grid-cols-2 gap-3">
+        <div class="flex items-center gap-2 text-sm" style="color:#a3a3a3;">
+         <i data-lucide="circle-dot" class="w-3 h-3 flex-shrink-0" style="color:#dc2626;"></i>Engine
+        </div>
+        <div class="flex items-center gap-2 text-sm" style="color:#a3a3a3;">
+         <i data-lucide="circle-dot" class="w-3 h-3 flex-shrink-0" style="color:#dc2626;"></i>Fuel Tank
+        </div>
+        <div class="flex items-center gap-2 text-sm" style="color:#a3a3a3;">
+         <i data-lucide="circle-dot" class="w-3 h-3 flex-shrink-0" style="color:#dc2626;"></i>Frame
+        </div>
+        <div class="flex items-center gap-2 text-sm" style="color:#a3a3a3;">
+         <i data-lucide="circle-dot" class="w-3 h-3 flex-shrink-0" style="color:#dc2626;"></i>Wheels &amp; Tires
+        </div>
+        <div class="flex items-center gap-2 text-sm" style="color:#a3a3a3;">
+         <i data-lucide="circle-dot" class="w-3 h-3 flex-shrink-0" style="color:#dc2626;"></i>Seat
+        </div>
+        <div class="flex items-center gap-2 text-sm" style="color:#a3a3a3;">
+         <i data-lucide="circle-dot" class="w-3 h-3 flex-shrink-0" style="color:#dc2626;"></i>Exhaust System
+        </div>
+       </div>
+      </div>
+      <div class="p-6 rounded-2xl" style="background:#141414; border:1px solid #1f1f1f;">
+       <h3 class="font-heading text-xl mb-4" style="color:#dc2626;">Control Components</h3>
+       <div class="grid grid-cols-2 gap-3">
+        <div class="flex items-center gap-2 text-sm" style="color:#a3a3a3;">
+         <i data-lucide="circle-dot" class="w-3 h-3 flex-shrink-0" style="color:#dc2626;"></i>Clutch Lever
+        </div>
+        <div class="flex items-center gap-2 text-sm" style="color:#a3a3a3;">
+         <i data-lucide="circle-dot" class="w-3 h-3 flex-shrink-0" style="color:#dc2626;"></i>Throttle
+        </div>
+        <div class="flex items-center gap-2 text-sm" style="color:#a3a3a3;">
+         <i data-lucide="circle-dot" class="w-3 h-3 flex-shrink-0" style="color:#dc2626;"></i>Kick Starter
+        </div>
+        <div class="flex items-center gap-2 text-sm" style="color:#a3a3a3;">
+         <i data-lucide="circle-dot" class="w-3 h-3 flex-shrink-0" style="color:#dc2626;"></i>Gearbox
+        </div>
+        <div class="flex items-center gap-2 text-sm" style="color:#a3a3a3;">
+         <i data-lucide="circle-dot" class="w-3 h-3 flex-shrink-0" style="color:#dc2626;"></i>Chain Drive
+        </div>
+        <div class="flex items-center gap-2 text-sm" style="color:#a3a3a3;">
+         <i data-lucide="circle-dot" class="w-3 h-3 flex-shrink-0" style="color:#dc2626;"></i>Brakes &amp; Suspension
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section><!-- BIKE MODELS -->
+   <section id="models" class="w-full py-20 px-4 sm:px-6" style="background:#0f0f0f;">
+    <div class="max-w-5xl mx-auto">
+     <p class="text-xs tracking-[0.3em] uppercase mb-2 font-medium" style="color:#dc2626;">Chapter 06</p>
+     <h2 class="font-heading text-4xl sm:text-5xl mb-4" style="color:#f5f5f5;">Bike Models</h2>
+     <p class="mb-10" style="color:#a3a3a3;">Five unique machines. Each built for a different kind of rider.</p>
+     <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6" id="bike-models-grid"><!-- Model 1 -->
+      <div class="bike-card rounded-2xl overflow-hidden" style="background:#141414; border:1px solid #1f1f1f;">
+       <div class="h-40 flex items-center justify-center relative" style="background:linear-gradient(135deg, #1a0000 0%, #0a0a0a 100%);">
+        <svg viewbox="0 0 200 100" class="w-32 opacity-60">
+         <circle cx="45" cy="70" r="22" stroke="#dc2626" stroke-width="2" fill="none" /><circle cx="155" cy="70" r="22" stroke="#dc2626" stroke-width="2" fill="none" /><path d="M45 70 L75 40 L120 35 L135 50 L155 70" stroke="#dc2626" stroke-width="2" fill="none" /><path d="M75 40 L85 25 L95 22" stroke="#dc2626" stroke-width="1.5" fill="none" />
+        </svg><span class="absolute top-3 right-3 text-xs font-bold px-2 py-1 rounded" style="background:#dc2626; color:#f5f5f5;">SPORT</span>
+       </div>
+       <div class="p-5">
+        <h3 class="font-heading text-xl" style="color:#f5f5f5;">Roadster 404</h3>
+        <p class="text-xs mb-3" style="color:#666;">A sporty street beast</p>
+        <div class="flex justify-between text-xs" style="color:#a3a3a3;"><span>350cc</span><span>₹3–5 Lakh</span>
+        </div>
+       </div>
+      </div><!-- Model 2 -->
+      <div class="bike-card rounded-2xl overflow-hidden" style="background:#141414; border:1px solid #1f1f1f;">
+       <div class="h-40 flex items-center justify-center relative" style="background:linear-gradient(135deg, #0a0a1a 0%, #0a0a0a 100%);">
+        <svg viewbox="0 0 200 100" class="w-32 opacity-60">
+         <circle cx="45" cy="70" r="22" stroke="#dc2626" stroke-width="2" fill="none" /><circle cx="155" cy="70" r="22" stroke="#dc2626" stroke-width="2" fill="none" /><path d="M45 70 L70 45 L125 38 L140 55 L155 70" stroke="#dc2626" stroke-width="2" fill="none" /><ellipse cx="110" cy="48" rx="20" ry="10" stroke="#dc2626" stroke-width="1.5" fill="none" />
+        </svg><span class="absolute top-3 right-3 text-xs font-bold px-2 py-1 rounded" style="background:#dc2626; color:#f5f5f5;">CRUISER</span>
+       </div>
+       <div class="p-5">
+        <h3 class="font-heading text-xl" style="color:#f5f5f5;">Villain Cruiser</h3>
+        <p class="text-xs mb-3" style="color:#666;">Dominate the highway</p>
+        <div class="flex justify-between text-xs" style="color:#a3a3a3;"><span>500cc</span><span>₹6–8 Lakh</span>
+        </div>
+       </div>
+      </div><!-- Model 3 -->
+      <div class="bike-card rounded-2xl overflow-hidden" style="background:#141414; border:1px solid #1f1f1f;">
+       <div class="h-40 flex items-center justify-center relative" style="background:linear-gradient(135deg, #1a0a00 0%, #0a0a0a 100%);">
+        <svg viewbox="0 0 200 100" class="w-32 opacity-60">
+         <circle cx="45" cy="70" r="22" stroke="#dc2626" stroke-width="2" fill="none" /><circle cx="155" cy="70" r="22" stroke="#dc2626" stroke-width="2" fill="none" /><path d="M45 70 L80 35 L130 30 L145 50 L155 70" stroke="#dc2626" stroke-width="2.5" fill="none" /><rect x="90" y="32" width="35" height="10" rx="3" stroke="#dc2626" stroke-width="1.5" fill="none" />
+        </svg><span class="absolute top-3 right-3 text-xs font-bold px-2 py-1 rounded" style="background:#dc2626; color:#f5f5f5;">PREMIUM</span>
+       </div>
+       <div class="p-5">
+        <h3 class="font-heading text-xl" style="color:#f5f5f5;">Shadow King</h3>
+        <p class="text-xs mb-3" style="color:#666;">The ultimate power machine</p>
+        <div class="flex justify-between text-xs" style="color:#a3a3a3;"><span>750cc</span><span>₹10–12 Lakh</span>
+        </div>
+       </div>
+      </div><!-- Model 4 -->
+      <div class="bike-card rounded-2xl overflow-hidden" style="background:#141414; border:1px solid #1f1f1f;">
+       <div class="h-40 flex items-center justify-center relative" style="background:linear-gradient(135deg, #0a1a0a 0%, #0a0a0a 100%);">
+        <svg viewbox="0 0 200 100" class="w-32 opacity-60">
+         <circle cx="45" cy="70" r="22" stroke="#dc2626" stroke-width="2" fill="none" /><circle cx="155" cy="70" r="22" stroke="#dc2626" stroke-width="2" fill="none" /><path d="M45 70 L65 50 L115 42 L130 55 L155 70" stroke="#dc2626" stroke-width="2" fill="none" /><path d="M65 50 L75 30" stroke="#dc2626" stroke-width="1.5" fill="none" />
+        </svg><span class="absolute top-3 right-3 text-xs font-bold px-2 py-1 rounded" style="background:#dc2626; color:#f5f5f5;">CITY</span>
+       </div>
+       <div class="p-5">
+        <h3 class="font-heading text-xl" style="color:#f5f5f5;">Street Rebel</h3>
+        <p class="text-xs mb-3" style="color:#666;">Agile city commuter</p>
+        <div class="flex justify-between text-xs" style="color:#a3a3a3;"><span>250cc</span><span>₹3–4 Lakh</span>
+        </div>
+       </div>
+      </div><!-- Model 5 -->
+      <div class="bike-card rounded-2xl overflow-hidden" style="background:#141414; border:1px solid #1f1f1f;">
+       <div class="h-40 flex items-center justify-center relative" style="background:linear-gradient(135deg, #1a1a0a 0%, #0a0a0a 100%);">
+        <svg viewbox="0 0 200 100" class="w-32 opacity-60">
+         <circle cx="45" cy="70" r="25" stroke="#dc2626" stroke-width="2" fill="none" /><circle cx="155" cy="70" r="25" stroke="#dc2626" stroke-width="2" fill="none" /><path d="M45 70 L75 38 L125 32 L145 48 L155 70" stroke="#dc2626" stroke-width="2.5" fill="none" /><path d="M75 38 L90 20 L100 18" stroke="#dc2626" stroke-width="2" fill="none" /><path d="M125 32 L140 25" stroke="#dc2626" stroke-width="1.5" fill="none" />
+        </svg><span class="absolute top-3 right-3 text-xs font-bold px-2 py-1 rounded" style="background:#dc2626; color:#f5f5f5;">ADVENTURE</span>
+       </div>
+       <div class="p-5">
+        <h3 class="font-heading text-xl" style="color:#f5f5f5;">Outlaw Tourer</h3>
+        <p class="text-xs mb-3" style="color:#666;">Built for the open road</p>
+        <div class="flex justify-between text-xs" style="color:#a3a3a3;"><span>650cc</span><span>₹7–9 Lakh</span>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section><!-- PRODUCTION -->
+   <section id="production" class="w-full py-20 px-4 sm:px-6">
+    <div class="max-w-5xl mx-auto">
+     <p class="text-xs tracking-[0.3em] uppercase mb-2 font-medium" style="color:#dc2626;">Chapter 07</p>
+     <h2 class="font-heading text-4xl sm:text-5xl mb-10" style="color:#f5f5f5;">Production Plan</h2>
+     <div class="relative">
+      <div class="absolute left-4 top-0 bottom-0 w-0.5" style="background:linear-gradient(to bottom, #dc2626, transparent);"></div>
+      <div class="space-y-8 pl-12">
+       <div class="relative">
+        <div class="absolute -left-[2.15rem] top-1 w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold" style="background:#dc2626; color:#f5f5f5;">
+         1
+        </div>
+        <h3 class="font-semibold" style="color:#f5f5f5;">Designing</h3>
+        <p class="text-sm" style="color:#a3a3a3;">Create blueprint and 3D models</p>
+       </div>
+       <div class="relative">
+        <div class="absolute -left-[2.15rem] top-1 w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold" style="background:#dc2626; color:#f5f5f5;">
+         2
+        </div>
+        <h3 class="font-semibold" style="color:#f5f5f5;">Buying Materials</h3>
+        <p class="text-sm" style="color:#a3a3a3;">Source steel, rubber, aluminum &amp; more</p>
+       </div>
+       <div class="relative">
+        <div class="absolute -left-[2.15rem] top-1 w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold" style="background:#dc2626; color:#f5f5f5;">
+         3
+        </div>
+        <h3 class="font-semibold" style="color:#f5f5f5;">Assembling Engine</h3>
+        <p class="text-sm" style="color:#a3a3a3;">Build the heart of the machine</p>
+       </div>
+       <div class="relative">
+        <div class="absolute -left-[2.15rem] top-1 w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold" style="background:#dc2626; color:#f5f5f5;">
+         4
+        </div>
+        <h3 class="font-semibold" style="color:#f5f5f5;">Building Frame</h3>
+        <p class="text-sm" style="color:#a3a3a3;">Weld and assemble the skeleton</p>
+       </div>
+       <div class="relative">
+        <div class="absolute -left-[2.15rem] top-1 w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold" style="background:#dc2626; color:#f5f5f5;">
+         5
+        </div>
+        <h3 class="font-semibold" style="color:#f5f5f5;">Painting</h3>
+        <p class="text-sm" style="color:#a3a3a3;">Apply the signature Khalnayak finish</p>
+       </div>
+       <div class="relative">
+        <div class="absolute -left-[2.15rem] top-1 w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold" style="background:#dc2626; color:#f5f5f5;">
+         6
+        </div>
+        <h3 class="font-semibold" style="color:#f5f5f5;">Testing</h3>
+        <p class="text-sm" style="color:#a3a3a3;">Quality &amp; safety checks before delivery</p>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section><!-- PRICING -->
+   <section id="pricing" class="w-full py-20 px-4 sm:px-6" style="background:#0f0f0f;">
+    <div class="max-w-5xl mx-auto">
+     <p class="text-xs tracking-[0.3em] uppercase mb-2 font-medium" style="color:#dc2626;">Chapter 08</p>
+     <h2 class="font-heading text-4xl sm:text-5xl mb-10" style="color:#f5f5f5;">Pricing &amp; Customers</h2>
+     <div class="grid sm:grid-cols-3 gap-6">
+      <div class="card-hover rounded-2xl p-6 text-center" style="background:#141414; border:1px solid #1f1f1f;">
+       <p class="text-xs tracking-widest uppercase mb-3" style="color:#a3a3a3;">Basic</p>
+       <p class="font-heading text-4xl mb-1" style="color:#f5f5f5;">₹3–5L</p>
+       <p class="text-xs mb-4" style="color:#666;">Entry-level models</p>
+       <div class="w-full h-px mb-4" style="background:#1f1f1f;"></div>
+       <p class="text-xs" style="color:#a3a3a3;">Perfect for young riders and first-time buyers</p>
+      </div>
+      <div class="card-hover rounded-2xl p-6 text-center relative" style="background:#141414; border:2px solid #dc2626;">
+       <div class="absolute -top-3 left-1/2 -translate-x-1/2 text-xs font-bold px-3 py-1 rounded-full" style="background:#dc2626; color:#f5f5f5;">
+        POPULAR
+       </div>
+       <p class="text-xs tracking-widest uppercase mb-3" style="color:#a3a3a3;">Medium</p>
+       <p class="font-heading text-4xl mb-1" style="color:#f5f5f5;">₹6–8L</p>
+       <p class="text-xs mb-4" style="color:#666;">Mid-range power</p>
+       <div class="w-full h-px mb-4" style="background:#1f1f1f;"></div>
+       <p class="text-xs" style="color:#a3a3a3;">For bike enthusiasts who love long rides</p>
+      </div>
+      <div class="card-hover rounded-2xl p-6 text-center" style="background:#141414; border:1px solid #1f1f1f;">
+       <p class="text-xs tracking-widest uppercase mb-3" style="color:#a3a3a3;">Premium</p>
+       <p class="font-heading text-4xl mb-1" style="color:#f5f5f5;">₹10–12L</p>
+       <p class="text-xs mb-4" style="color:#666;">Top-tier beasts</p>
+       <div class="w-full h-px mb-4" style="background:#1f1f1f;"></div>
+       <p class="text-xs" style="color:#a3a3a3;">For those who want the ultimate machine</p>
+      </div>
+     </div>
+    </div>
+   </section><!-- HELPERS -->
+   <section id="helpers" class="w-full py-20 px-4 sm:px-6">
+    <div class="max-w-5xl mx-auto">
+     <p class="text-xs tracking-[0.3em] uppercase mb-2 font-medium" style="color:#dc2626;">Chapter 09</p>
+     <h2 class="font-heading text-4xl sm:text-5xl mb-8" style="color:#f5f5f5;">Business Helpers</h2>
+     <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div class="p-5 rounded-xl text-center card-hover" style="background:#141414; border:1px solid #1f1f1f;"><i data-lucide="truck" class="w-8 h-8 mx-auto mb-3" style="color:#dc2626;"></i>
+       <h3 class="font-semibold text-sm" style="color:#f5f5f5;">Transport</h3>
+       <p class="text-xs mt-1" style="color:#666;">Delivery &amp; logistics</p>
+      </div>
+      <div class="p-5 rounded-xl text-center card-hover" style="background:#141414; border:1px solid #1f1f1f;"><i data-lucide="package" class="w-8 h-8 mx-auto mb-3" style="color:#dc2626;"></i>
+       <h3 class="font-semibold text-sm" style="color:#f5f5f5;">Suppliers</h3>
+       <p class="text-xs mt-1" style="color:#666;">Raw material partners</p>
+      </div>
+      <div class="p-5 rounded-xl text-center card-hover" style="background:#141414; border:1px solid #1f1f1f;"><i data-lucide="megaphone" class="w-8 h-8 mx-auto mb-3" style="color:#dc2626;"></i>
+       <h3 class="font-semibold text-sm" style="color:#f5f5f5;">Marketing</h3>
+       <p class="text-xs mt-1" style="color:#666;">Promotion &amp; branding</p>
+      </div>
+      <div class="p-5 rounded-xl text-center card-hover" style="background:#141414; border:1px solid #1f1f1f;"><i data-lucide="wrench" class="w-8 h-8 mx-auto mb-3" style="color:#dc2626;"></i>
+       <h3 class="font-semibold text-sm" style="color:#f5f5f5;">Mechanics</h3>
+       <p class="text-xs mt-1" style="color:#666;">Service &amp; maintenance</p>
+      </div>
+     </div>
+    </div>
+   </section><!-- FOOTER -->
+   <footer class="w-full py-12 px-4 sm:px-6 text-center" style="background:#050505; border-top:1px solid #1f1f1f;">
+    <h3 class="font-heading text-2xl tracking-widest mb-2" style="color:#dc2626;">KHALNAYAK BIKES</h3>
+    <p class="text-xs mb-4" style="color:#666;">Bold machines for bold souls.</p>
+    <div class="text-xs space-y-1" style="color:#444;">
+     <p>Business Studies Project — SST</p>
+     <p id="footer-info">Khush Mulani • Class 8th E • Teacher: Abhimanyu Singh</p>
+    </div>
+   </footer>
+  </div>
+  <script>
+// Mobile menu
+document.getElementById('menu-btn').addEventListener('click', () => {
+  const m = document.getElementById('mobile-menu');
+  m.classList.toggle('hidden');
+});
+document.querySelectorAll('#mobile-menu a').forEach(a => {
+  a.addEventListener('click', () => document.getElementById('mobile-menu').classList.add('hidden'));
+});
+
+// Scroll animations
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.style.opacity = '1';
+      e.target.style.transform = 'translateY(0)';
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('section:not(#cover)').forEach(s => {
+  s.style.opacity = '0';
+  s.style.transform = 'translateY(30px)';
+  s.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+  observer.observe(s);
+});
+
+// Element SDK
+const defaultConfig = {
+  background_color: '#0a0a0a',
+  surface_color: '#141414',
+  text_color: '#f5f5f5',
+  accent_color: '#dc2626',
+  muted_color: '#a3a3a3',
+  font_family: 'Outfit',
+  font_size: 16,
+  student_name: 'Khush Mulani',
+  student_class: '8th E',
+  teacher_name: 'Abhimanyu Singh',
+  brand_tagline: 'Bold machines for bold souls. Inspired by power. Built with attitude.'
+};
+
+function applyConfig(config) {
+  const c = { ...defaultConfig, ...config };
+
+  // Colors
+  const wrapper = document.getElementById('app-wrapper');
+  wrapper.style.background = c.background_color;
+  wrapper.style.color = c.text_color;
+
+  document.querySelectorAll('[style*="background:#141414"], [style*="background: #141414"]').forEach(el => {
+    el.style.backgroundColor = c.surface_color;
+  });
+
+  // Text content
+  document.getElementById('info-name').textContent = 'Name: ' + c.student_name;
+  document.getElementById('info-class').textContent = 'Class: ' + c.student_class;
+  document.getElementById('info-teacher').textContent = 'Teacher: ' + c.teacher_name;
+  document.getElementById('hero-tagline').textContent = c.brand_tagline;
+  document.getElementById('footer-info').textContent = c.student_name + ' • Class ' + c.student_class + ' • Teacher: ' + c.teacher_name;
+
+  // Fonts
+  const fontStack = c.font_family + ', Outfit, sans-serif';
+  document.querySelectorAll('.font-body, p, li, span, a:not(.font-heading)').forEach(el => {
+    el.style.fontFamily = fontStack;
+  });
+  const headingStack = 'Bebas Neue, cursive';
+  document.querySelectorAll('.font-heading').forEach(el => {
+    el.style.fontFamily = headingStack;
+  });
+
+  // Font size
+  const base = c.font_size;
+  document.querySelectorAll('p, li, span').forEach(el => {
+    if (!el.closest('.font-heading')) {
+      // keep relative sizes
+    }
+  });
+}
+
+if (window.elementSdk) {
+  window.elementSdk.init({
+    defaultConfig,
+    onConfigChange: async (config) => { applyConfig(config); },
+    mapToCapabilities: (config) => ({
+      recolorables: [
+        { get: () => config.background_color || defaultConfig.background_color, set: (v) => { config.background_color = v; window.elementSdk.setConfig({ background_color: v }); } },
+        { get: () => config.surface_color || defaultConfig.surface_color, set: (v) => { config.surface_color = v; window.elementSdk.setConfig({ surface_color: v }); } },
+        { get: () => config.text_color || defaultConfig.text_color, set: (v) => { config.text_color = v; window.elementSdk.setConfig({ text_color: v }); } },
+        { get: () => config.accent_color || defaultConfig.accent_color, set: (v) => { config.accent_color = v; window.elementSdk.setConfig({ accent_color: v }); } },
+        { get: () => config.muted_color || defaultConfig.muted_color, set: (v) => { config.muted_color = v; window.elementSdk.setConfig({ muted_color: v }); } },
+      ],
+      borderables: [],
+      fontEditable: { get: () => config.font_family || defaultConfig.font_family, set: (v) => { config.font_family = v; window.elementSdk.setConfig({ font_family: v }); } },
+      fontSizeable: { get: () => config.font_size || defaultConfig.font_size, set: (v) => { config.font_size = v; window.elementSdk.setConfig({ font_size: v }); } },
+    }),
+    mapToEditPanelValues: (config) => new Map([
+      ['student_name', config.student_name || defaultConfig.student_name],
+      ['student_class', config.student_class || defaultConfig.student_class],
+      ['teacher_name', config.teacher_name || defaultConfig.teacher_name],
+      ['brand_tagline', config.brand_tagline || defaultConfig.brand_tagline],
+    ])
+  });
+}
+
+lucide.createIcons();
+</script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9f0a97a50602a7c7',t:'MTc3NjkyMzQ0NC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
